@@ -1,0 +1,1 @@
+space shooter,shmup,bullet hell,arcade,galaxy
