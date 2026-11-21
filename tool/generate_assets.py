@@ -950,6 +950,201 @@ def m_spaceship(d, cx, cy, S, rnd):
         d.line([(cx - S * 0.02 + (i - 1) * S * 0.12, cy - S * 0.45 - i * 8), (cx - S * 0.02 + (i - 1) * S * 0.12, cy - S * 0.55 - i * 8)], fill="#FFFF3F", width=5)
 
 
+def _ball_hex(d, cx, cy, r):
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill="#FFFFFF", outline="#222222", width=max(2, int(r * 0.06)))
+    import math as _m
+    pts = [(cx + _m.cos(_m.pi / 2 * 3 + k * 2 * _m.pi / 5) * r * 0.35, cy + _m.sin(_m.pi / 2 * 3 + k * 2 * _m.pi / 5) * r * 0.35) for k in range(5)]
+    d.polygon(pts, fill="#222222")
+
+
+def m_football(d, cx, cy, S, rnd):
+    d.rectangle((cx - S * 0.45, cy + S * 0.2, cx + S * 0.45, cy + S * 0.45), fill="#2D6A4F")
+    d.line([(cx - S * 0.35, cy - S * 0.1), (cx - S * 0.35, cy - S * 0.4), (cx + S * 0.35, cy - S * 0.4), (cx + S * 0.35, cy - S * 0.1)], fill="#FFFFFF", width=int(S * 0.04))
+    _ball_hex(d, cx, cy + S * 0.08, S * 0.2)
+
+
+def m_basketball(d, cx, cy, S, rnd):
+    r = S * 0.3
+    d.ellipse((cx - r, cy - r + S * 0.08, cx + r, cy + r + S * 0.08), fill="#F77F00", outline="#3D1E00", width=int(S * 0.025))
+    d.line([(cx - r, cy + S * 0.08), (cx + r, cy + S * 0.08)], fill="#3D1E00", width=int(S * 0.025))
+    d.line([(cx, cy - r + S * 0.08), (cx, cy + r + S * 0.08)], fill="#3D1E00", width=int(S * 0.025))
+    d.line([(cx - S * 0.3, cy - S * 0.32), (cx + S * 0.3, cy - S * 0.32)], fill="#E63946", width=int(S * 0.05))
+
+
+def m_penalty(d, cx, cy, S, rnd):
+    d.rectangle((cx - S * 0.42, cy - S * 0.35, cx + S * 0.42, cy + S * 0.05), outline="#FFFFFF", width=int(S * 0.04))
+    for i in range(1, 6):
+        x = cx - S * 0.42 + i * S * 0.14
+        d.line([(x, cy - S * 0.35), (x, cy + S * 0.05)], fill="#FFFFFF66", width=2)
+    d.ellipse((cx + S * 0.12, cy - S * 0.3, cx + S * 0.3, cy - S * 0.12), fill="#00B4D8")
+    _ball_hex(d, cx - S * 0.1, cy + S * 0.28, S * 0.13)
+
+
+def m_pingpong(d, cx, cy, S, rnd):
+    d.ellipse((cx - S * 0.32, cy - S * 0.38, cx + S * 0.18, cy + S * 0.12), fill="#E63946", outline="#111111", width=int(S * 0.02))
+    d.line([(cx + S * 0.08, cy + S * 0.02), (cx + S * 0.3, cy + S * 0.32)], fill="#8D6E63", width=int(S * 0.07))
+    d.ellipse((cx + S * 0.18, cy - S * 0.36, cx + S * 0.32, cy - S * 0.22), fill="#FFFFFF")
+
+
+def m_golf(d, cx, cy, S, rnd):
+    d.ellipse((cx - S * 0.45, cy + S * 0.15, cx + S * 0.45, cy + S * 0.42), fill="#52B788")
+    d.ellipse((cx - S * 0.06, cy + S * 0.24, cx + S * 0.06, cy + S * 0.3), fill="#081C15")
+    d.line([(cx, cy + S * 0.27), (cx, cy - S * 0.38)], fill="#FFFFFF", width=int(S * 0.025))
+    d.polygon([(cx, cy - S * 0.38), (cx + S * 0.25, cy - S * 0.3), (cx, cy - S * 0.22)], fill="#E63946")
+    d.ellipse((cx - S * 0.3, cy + S * 0.18, cx - S * 0.18, cy + S * 0.3), fill="#FFFFFF")
+
+
+def m_bowling(d, cx, cy, S, rnd):
+    for i, x in enumerate((-0.18, 0.0, 0.18)):
+        px = cx + x * S
+        d.ellipse((px - S * 0.06, cy - S * 0.38, px + S * 0.06, cy - S * 0.24), fill="#FFFFFF")
+        d.ellipse((px - S * 0.08, cy - S * 0.26, px + S * 0.08, cy + S * 0.02), fill="#FFFFFF")
+        d.rectangle((px - S * 0.05, cy - S * 0.26, px + S * 0.05, cy - S * 0.22), fill="#E63946")
+    r = S * 0.2
+    d.ellipse((cx - r, cy + S * 0.05, cx + r, cy + S * 0.05 + 2 * r), fill="#3A0CA3")
+    for ox, oy in ((-0.05, 0.12), (0.04, 0.1), (0.0, 0.18)):
+        d.ellipse((cx + ox * S - 5, cy + oy * S - 5, cx + ox * S + 5, cy + oy * S + 5), fill="#000000")
+
+
+def m_archery(d, cx, cy, S, rnd):
+    cols = ["#FFFFFF", "#222222", "#0077B6", "#E63946", "#FFD60A"]
+    for i, c in enumerate(cols):
+        r = S * 0.4 * (5 - i) / 5
+        d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=c)
+    d.line([(cx + S * 0.02, cy - S * 0.02), (cx + S * 0.42, cy - S * 0.42)], fill="#7F5539", width=int(S * 0.03))
+    d.polygon([(cx + S * 0.36, cy - S * 0.46), (cx + S * 0.46, cy - S * 0.46), (cx + S * 0.46, cy - S * 0.36)], fill="#E63946")
+
+
+def m_billiards(d, cx, cy, S, rnd):
+    d.rounded_rectangle((cx - S * 0.45, cy - S * 0.3, cx + S * 0.45, cy + S * 0.3), radius=int(S * 0.08), fill="#2E7D32", outline="#5C3A21", width=int(S * 0.05))
+    cols = ["#FFD60A", "#1D4ED8", "#E63946", "#111111", "#F77F00", "#7B2CBF"]
+    k = 0
+    for row in range(3):
+        for j in range(row + 1):
+            x = cx + S * 0.15 + row * S * 0.09
+            y = cy + (j - row / 2) * S * 0.1
+            d.ellipse((x - S * 0.05, y - S * 0.05, x + S * 0.05, y + S * 0.05), fill=cols[k % 6])
+            k += 1
+    d.ellipse((cx - S * 0.28, cy - S * 0.05, cx - S * 0.18, cy + S * 0.05), fill="#FFFFFF")
+
+
+def m_darts(d, cx, cy, S, rnd):
+    import math as _m
+    r = S * 0.4
+    d.ellipse((cx - r - 8, cy - r - 8, cx + r + 8, cy + r + 8), fill="#111111")
+    for i in range(20):
+        a0 = i * 18 - 99
+        d.pieslice((cx - r, cy - r, cx + r, cy + r), a0, a0 + 18, fill="#F1E3C6" if i % 2 else "#1B1B1B")
+    d.ellipse((cx - r * 0.62, cy - r * 0.62, cx + r * 0.62, cy + r * 0.62), outline="#D62828", width=int(S * 0.03))
+    d.ellipse((cx - r * 0.1, cy - r * 0.1, cx + r * 0.1, cy + r * 0.1), fill="#D62828")
+    d.line([(cx + S * 0.03, cy - S * 0.03), (cx + S * 0.3, cy - S * 0.3)], fill="#0077B6", width=int(S * 0.04))
+
+
+def m_tennis(d, cx, cy, S, rnd):
+    d.ellipse((cx - S * 0.3, cy - S * 0.42, cx + S * 0.12, cy + S * 0.05), outline="#E63946", width=int(S * 0.05))
+    for i in range(-2, 3):
+        d.line([(cx - S * 0.09 + i * S * 0.06, cy - S * 0.38), (cx - S * 0.09 + i * S * 0.06, cy + S * 0.01)], fill="#FFFFFF", width=2)
+    d.line([(cx + S * 0.05, cy + S * 0.02), (cx + S * 0.25, cy + S * 0.35)], fill="#333333", width=int(S * 0.06))
+    d.ellipse((cx + S * 0.12, cy - S * 0.15, cx + S * 0.34, cy + S * 0.07), fill="#D9ED92", outline="#FFFFFF", width=3)
+
+
+def m_antistress(d, cx, cy, S, rnd):
+    import math as _m
+    for k in range(3):
+        a = k * 2 * _m.pi / 3 - _m.pi / 2
+        ex, ey = cx + _m.cos(a) * S * 0.25, cy + _m.sin(a) * S * 0.25
+        d.line([(cx, cy), (ex, ey)], fill="#6A4C93", width=int(S * 0.14))
+        d.ellipse((ex - S * 0.13, ey - S * 0.13, ex + S * 0.13, ey + S * 0.13), fill=["#FFADAD", "#CAFFBF", "#A0C4FF"][k])
+    d.ellipse((cx - S * 0.1, cy - S * 0.1, cx + S * 0.1, cy + S * 0.1), fill="#FFD6A5")
+
+
+def m_popit(d, cx, cy, S, rnd):
+    cols = ["#FFADAD", "#FFD6A5", "#FDFFB6", "#CAFFBF", "#9BF6FF", "#BDB2FF"]
+    r = S * 0.07
+    for j in range(5):
+        for i in range(5):
+            x = cx + (i - 2) * r * 2.4 + (r * 1.2 if j % 2 else 0) - r * 0.6
+            y = cy + (j - 2) * r * 2.2
+            if (x - cx) ** 2 + (y - cy) ** 2 > (S * 0.42) ** 2:
+                continue
+            d.ellipse((x - r, y - r, x + r, y + r), fill=cols[j % 6], outline="#00000022", width=2)
+
+
+def m_sandart(d, cx, cy, S, rnd):
+    import math as _m
+    cols = ["#E76F51", "#F4A261", "#E9C46A", "#2A9D8F", "#264653"]
+    w, h = S * 0.5, S * 0.7
+    x0, y0 = cx - w / 2, cy - h / 2
+    for k, c in reversed(list(enumerate(cols))):
+        pts = [(x0 + w * i / 10, y0 + h * (1 - (k + 1) / 5) + _m.sin(i * 0.9 + k) * S * 0.03) for i in range(11)]
+        d.polygon(pts + [(x0 + w, y0 + h), (x0, y0 + h)], fill=c)
+    d.rectangle((x0, y0, x0 + w, y0 + h), outline="#8D6E63", width=int(S * 0.03))
+
+
+def m_cleaning(d, cx, cy, S, rnd):
+    d.ellipse((cx - S * 0.38, cy - S * 0.38, cx + S * 0.38, cy + S * 0.38), fill="#F8F9FA", outline="#ADB5BD", width=6)
+    d.ellipse((cx - S * 0.35, cy - S * 0.1, cx + S * 0.05, cy + S * 0.3), fill="#9C664488")
+    d.rounded_rectangle((cx - S * 0.05, cy - S * 0.3, cx + S * 0.33, cy - S * 0.08), radius=int(S * 0.05), fill="#FFD166")
+    for k in range(4):
+        x, y = cx + S * (0.1 + k * 0.07), cy - S * (0.4 + (k % 2) * 0.05)
+        d.ellipse((x - 8, y - 8, x + 8, y + 8), fill="#FFFFFFCC")
+
+
+def m_zengarden(d, cx, cy, S, rnd):
+    d.rectangle((cx - S * 0.42, cy - S * 0.35, cx + S * 0.42, cy + S * 0.35), fill="#F1E3C6")
+    for k in range(9):
+        y = cy - S * 0.3 + k * S * 0.075
+        d.line([(cx - S * 0.4, y), (cx + S * 0.4, y)], fill="#C9B79C", width=3)
+    d.ellipse((cx - S * 0.2, cy - S * 0.12, cx + S * 0.05, cy + S * 0.08), fill="#6C757D")
+    d.ellipse((cx + S * 0.12, cy + S * 0.05, cx + S * 0.28, cy + S * 0.18), fill="#495057")
+
+
+def m_mergefruit(d, cx, cy, S, rnd):
+    d.ellipse((cx - S * 0.32, cy - S * 0.22, cx + S * 0.32, cy + S * 0.4), fill="#2D6A4F")
+    d.ellipse((cx - S * 0.26, cy - S * 0.16, cx + S * 0.26, cy + S * 0.34), fill="#80ED99")
+    d.ellipse((cx - S * 0.2, cy - S * 0.42, cx - S * 0.02, cy - S * 0.24), fill="#D00000")
+    d.ellipse((cx + S * 0.04, cy - S * 0.46, cx + S * 0.26, cy - S * 0.24), fill="#FFB703")
+    for ox in (-0.08, 0.08):
+        d.ellipse((cx + ox * S - 6, cy + S * 0.05 - 6, cx + ox * S + 6, cy + S * 0.05 + 6), fill="#222222")
+
+
+def m_screw(d, cx, cy, S, rnd):
+    d.rounded_rectangle((cx - S * 0.4, cy - S * 0.2, cx + S * 0.3, cy + S * 0.15), radius=int(S * 0.06), fill="#457B9DCC")
+    d.rounded_rectangle((cx - S * 0.25, cy - S * 0.05, cx + S * 0.42, cy + S * 0.3), radius=int(S * 0.06), fill="#E63946CC")
+    for x, y, c in ((-0.3, -0.1, "#FFB703"), (0.2, -0.1, "#2A9D8F"), (0.32, 0.2, "#9D4EDD")):
+        px, py = cx + x * S, cy + y * S
+        d.ellipse((px - S * 0.06, py - S * 0.06, px + S * 0.06, py + S * 0.06), fill=c, outline="#343A40", width=4)
+        d.line([(px - S * 0.03, py - S * 0.03), (px + S * 0.03, py + S * 0.03)], fill="#000000", width=3)
+
+
+def m_goodssort(d, cx, cy, S, rnd):
+    cols = ["#E63946", "#FFB703", "#2A9D8F"]
+    for row in range(2):
+        y = cy - S * 0.2 + row * S * 0.32
+        d.rectangle((cx - S * 0.42, y + S * 0.12, cx + S * 0.42, y + S * 0.16), fill="#7F5539")
+        for k in range(3):
+            x = cx + (k - 1) * S * 0.26
+            c = cols[0] if row == 0 else cols[k]
+            d.rounded_rectangle((x - S * 0.08, y - S * 0.08, x + S * 0.08, y + S * 0.12), radius=8, fill=c)
+
+
+def m_tilematch(d, cx, cy, S, rnd):
+    cols = ["#FF8FAB", "#80ED99", "#FFD60A"]
+    for k, (ox, oy) in enumerate(((-0.18, -0.12), (0.06, -0.2), (-0.04, 0.08))):
+        x, y = cx + ox * S, cy + oy * S
+        d.rounded_rectangle((x - S * 0.14, y - S * 0.16, x + S * 0.14, y + S * 0.16), radius=12, fill="#FFFCF2", outline="#2D6A4F", width=5)
+        d.ellipse((x - S * 0.07, y - S * 0.07, x + S * 0.07, y + S * 0.07), fill=cols[k])
+
+
+def m_hexasort(d, cx, cy, S, rnd):
+    import math as _m
+    cols = ["#E63946", "#FFB703", "#2A9D8F", "#9D4EDD"]
+    for k in range(4):
+        y = cy + S * 0.15 - k * S * 0.08
+        pts = [(cx + _m.cos(a * _m.pi / 3) * S * 0.3, y + _m.sin(a * _m.pi / 3) * S * 0.2) for a in range(6)]
+        d.polygon(pts, fill=cols[k], outline="#00000055")
+
+
 MOTIFS = {
     "blocks": m_blocks, "bottles": m_bottles, "balls": m_balls, "2048": m_2048,
     "sudoku": m_sudoku, "jigsaw": m_jigsaw, "nonogram": m_nonogram,
@@ -970,6 +1165,10 @@ MOTIFS = {
     "kids_puzzle": m_kids_puzzle, "kids_mini": m_kids_mini,
     "zombie": m_zombie, "stickman": m_stickman, "ninja": m_ninja, "dungeon": m_dungeon, "alien_defense": m_alien_defense,
     "robot": m_robot, "shadow": m_shadow, "beast": m_beast, "island": m_island, "spaceship": m_spaceship,
+    "football": m_football, "basketball": m_basketball, "penalty": m_penalty, "pingpong": m_pingpong, "golf": m_golf,
+    "bowling": m_bowling, "archery": m_archery, "billiards": m_billiards, "darts": m_darts, "tennis": m_tennis,
+    "antistress": m_antistress, "popit": m_popit, "sandart": m_sandart, "cleaning": m_cleaning, "zengarden": m_zengarden,
+    "mergefruit": m_mergefruit, "screw": m_screw, "goodssort": m_goodssort, "tilematch": m_tilematch, "hexasort": m_hexasort,
 }
 
 
